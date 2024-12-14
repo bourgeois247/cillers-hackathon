@@ -6,7 +6,7 @@ from openai import OpenAI
 from anthropic import Anthropic
 from typing import List, Optional, Dict, Any
 
-from clients.footway import FootwayClient, InventoryItem
+from clients.footway import FootwayClient, InventoryItem, PaginatedInventoryResponse
 from clients.postgres import PostgresVectorClient
 from utils import log
 
@@ -47,6 +47,10 @@ class VectorSearchItem(BaseModel):
 class VectorSearchResponse(BaseModel):
     items: List[VectorSearchItem]
 
+class WhatWeWantResponse(BaseModel):
+    message: DemoResponse
+    inventory: PaginatedInventoryResponse
+
 #### Routes ####
 
 @router.get("/hello",
@@ -67,6 +71,24 @@ async def query_openai(request: DemoRequest) -> DemoResponse:
         ]
     )
     return DemoResponse(message=completion.choices[0].message.content)
+
+@router.post("/filter/openai",
+             response_model=WhatWeWantResponse,
+             description="Makes a reqeust against OpenAI")
+async def filter_openai(request: DemoRequest) -> WhatWeWantResponse:
+    vectors = await search_vector_inventory(request.prompt)
+    ids = list(filter(lambda id: id != '', map(lambda i: i.id, vectors.items)))
+    inventory = await search_footway_inventory(None, None, None, ids)
+    completion = openai_client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You are a bratty helpful assistant."},
+            {"role": "user", "content": request.prompt},
+        ]
+    )
+
+    return WhatWeWantResponse(message=DemoResponse(message=completion.choices[0].message.content), inventory=inventory)
+
 
 @router.post("/test/anthropic",
              response_model=DemoResponse,
