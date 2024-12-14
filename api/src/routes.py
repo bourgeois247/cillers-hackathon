@@ -83,6 +83,7 @@ async def filter_openai(request: DemoRequest) -> WhatWeWantResponse:
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are a bratty helpful assistant."},
+            {"role": "system", "content": "Here is a json of available products based on the user's prompt; use this to be as helpful as possible: " + json.dumps([item.__dict__ for item in inventory.items])},
             {"role": "user", "content": request.prompt},
         ]
     )
