@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ApiClientRest } from '../../../rest/api_client_rest'
 import { createChatApi, Message } from '../../../rest/modules/chat'
+import BeatLoader from "react-spinners/BeatLoader";
 
 interface ItemsProps {
     client: ApiClientRest
@@ -10,6 +11,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
   const chatApi = createChatApi(client);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -19,7 +21,9 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
     setInput('');
 
     try {
+      setLoading(true);
       const botMessage = await chatApi.sendMessage(userMessage.content);
+      setLoading(false);
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error(err);
@@ -27,6 +31,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
         ...prev,
         { role: 'bot', content: `Error: Unable to fetch response: ${err}` },
       ]);
+      setLoading(false);
     }
   };
 
@@ -47,6 +52,16 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
               {message.content}
             </div>
           ))}
+          {isLoading && <div className='bg-base-200 p-3 rounded' style={{ maxWidth: '70%', alignSelf: 'flex-start' }}>
+            <BeatLoader
+              color={'#000'}
+              loading={isLoading}
+              cssOverride={{}}
+              size={10}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>}
         </div>
       </div>
       <div className="p-4 bg-base-300">
