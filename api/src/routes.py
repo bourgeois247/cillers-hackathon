@@ -17,6 +17,9 @@ router = APIRouter()
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 anthropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
+chat_messages = [{"role": "system", "content": "You are a bratty helpful assistant."}]
+
+
 #### Models ####
 
 ## Demo Endpoints ##
@@ -49,7 +52,7 @@ class VectorSearchResponse(BaseModel):
 
 class WhatWeWantResponse(BaseModel):
     message: DemoResponse
-    inventory: PaginatedInventoryResponse
+    inventory: PaginatedInventoryResponse | None
 
 #### Routes ####
 
@@ -78,15 +81,21 @@ async def query_openai(request: DemoRequest) -> DemoResponse:
 async def filter_openai(request: DemoRequest) -> WhatWeWantResponse:
     vectors = await search_vector_inventory(request.prompt)
     ids = list(filter(lambda id: id != '', map(lambda i: i.id, vectors.items)))
-    inventory = await search_footway_inventory(None, None, None, ids)
+    inventory = None if len(ids) == 0 else await search_footway_inventory(None, None, None, ids)
+
+    if inventory != None: chat_messages.append({"role": "system", "content": "Here is a json of available products based on the user's prompt; use this to be as helpful as possible: " + json.dumps([item.__dict__ for item in inventory.items])})
+    chat_messages.append({"role": "user", "content": request.prompt})
+            #  {"role": "system", "content": "Show what it costs based on the available products" + json.dumps([item.__dict__ for item in inventory.items])} if inventory 
+            #  else {"role": "system", "content": "Ask for more information on what the product the user is intrested in."},
+
     completion = openai_client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are a bratty helpful assistant."},
-            {"role": "system", "content": "Here is a json of available products based on the user's prompt; use this to be as helpful as possible: " + json.dumps([item.__dict__ for item in inventory.items])},
-            {"role": "user", "content": request.prompt},
-        ]
+        messages=chat_messages
     )
+
+    chat_messages.append({"role": "assistant", "content": completion.choices[0].message.content})
+
+    print("here is the messages sent", len(chat_messages))
 
     return WhatWeWantResponse(message=DemoResponse(message=completion.choices[0].message.content), inventory=inventory)
 
