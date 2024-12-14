@@ -50,7 +50,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
               }`}
               style={{ maxWidth: '70%', alignSelf: message.role === 'user' ? 'flex-end' : 'flex-start' }}
             >
-              {message.content}{' What do you think about these though?'}
+              {message.content}
               
               {message.inventory && message.inventory.items && (
                 <div className="mt-2">
