@@ -52,10 +52,10 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
             >
               {message.content}
               
-              {message.inventory && message.inventory.items && (
+              {message.inventory && message.inventory && (
                 <div className="mt-2">
                 <div className="grid grid-cols-3 gap-4">
-                    {message.inventory.items.map((item) => (
+                    {message.inventory.map((item) => (
                       <div key={`${item.productName}`} style={{ maxHeight: '26rem' }}>
                         <div className="rounded-t-lg" style={{
                           backgroundImage: `url(${item.image_url})`,

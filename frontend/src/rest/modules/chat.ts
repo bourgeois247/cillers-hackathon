@@ -14,9 +14,7 @@ export interface Item {
   image_url: string;
 }
 
-export interface Inventory {
-  items: Item[];
-}
+export type Inventory = Item[]
 
 export interface Response {
   message: string | { message: string };
