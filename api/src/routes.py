@@ -62,7 +62,7 @@ class VectorSearchResponse(BaseModel):
 
 class WhatWeWantResponse(BaseModel):
     message: DemoResponse
-    inventory: PaginatedInventoryResponse | None
+    inventory: List[InventoryItem] | None
 
 #### Routes ####
 
@@ -112,11 +112,20 @@ async def filter_openai(request: DemoRequest) -> WhatWeWantResponse:
         messages=chat_messages
     )
 
-    chat_messages.append({"role": "assistant", "content": completion.choices[0].message.content})
+    message_to_user = completion.choices[0].message.content
 
+    chat_messages.append({"role": "assistant", "content": message_to_user})
     print("here is the messages sent", len(chat_messages))
 
-    return WhatWeWantResponse(message=DemoResponse(message=completion.choices[0].message.content), inventory=inventory)
+    temp = chat_messages.copy()
+    temp.append({"role": "system", "content": "Return a list of the variant_id properties of the product mentioned in the last response to the user. If there are no products mentioned just return a empty list. Use format [x, y, z]"})
+    completion = openai_client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=temp
+    )
+    print("AI SAID THIS:" + completion.choices[0].message.content)
+
+    return WhatWeWantResponse(message=DemoResponse(message=message_to_user), inventory=filter(lambda p: p.variant_id in completion.choices[0].message.content, profile.products))
 
 
 @router.post("/test/anthropic",
