@@ -75,7 +75,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
           ))}
           {isLoading && <div className='bg-base-200 p-3 rounded' style={{ maxWidth: '70%', alignSelf: 'flex-start' }}>
             <BeatLoader
-              color={'#000'}
+              color={'#fff'}
               loading={isLoading}
               cssOverride={{}}
               size={10}
