@@ -40,7 +40,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
               className={`p-3 rounded ${
                 message.role === 'user'
                   ? 'bg-primary text-primary-content self-end'
-                  : 'bg-base-200'
+                  : 'bg-base-200 text-gray-600'
               }`}
               style={{ maxWidth: '70%', alignSelf: message.role === 'user' ? 'flex-end' : 'flex-start' }}
             >
@@ -54,7 +54,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
           <div className="input-group flex">
             <input
               type="text"
-              className="input flex-grow"
+              className="input flex-grow text-black"
               placeholder="Type your message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
