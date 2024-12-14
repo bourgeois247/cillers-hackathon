@@ -12,7 +12,6 @@ export interface Message {
 export function createChatApi(client: ApiClientInterface) {
   return {
     async sendMessage(prompt: string): Promise<Message> {
-      debugger;
       const on_error = (messages: string[]) => {
         console.error('Error calling the API:', messages);
       };
