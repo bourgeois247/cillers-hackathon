@@ -4,7 +4,7 @@ _transform: true
 services:
 
 - name: frontend
-  url: http://frontend
+  url: http://frontend:3000
   routes:
   - name: frontend-route
     strip_path: false
