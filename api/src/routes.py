@@ -4,7 +4,7 @@ from fastapi import APIRouter, Query
 from pydantic import BaseModel
 from openai import OpenAI
 from anthropic import Anthropic
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Set
 
 from clients.footway import FootwayClient, InventoryItem, PaginatedInventoryResponse
 from clients.postgres import PostgresVectorClient
@@ -23,6 +23,16 @@ chat_messages = [{"role": "system", "content": "You are a bratty helpful assista
 #### Models ####
 
 ## Demo Endpoints ##
+
+class Profile:
+    def __init__(self):
+        self.department: str = ''
+        self.size: int = 0
+        self.product_type: str = ''
+        self.vectors: set[str] = set()
+        self.products: List[InventoryItem] = []
+
+profile = Profile()
 
 class DemoRequest(BaseModel):
     prompt: str
@@ -80,11 +90,20 @@ async def query_openai(request: DemoRequest) -> DemoResponse:
              description="Makes a reqeust against OpenAI")
 async def filter_openai(request: DemoRequest) -> WhatWeWantResponse:
     vectors = await search_vector_inventory(request.prompt)
-    ids = list(filter(lambda id: id != '', map(lambda i: i.id, vectors.items)))
-    inventory = None if len(ids) == 0 else await search_footway_inventory(None, None, None, ids)
+    new_vectors = set(map(lambda v: v.id, vectors.items)).difference(profile.vectors)
+    profile.vectors = profile.vectors.union(new_vectors)
+    inventory = None if len(new_vectors) == 0 else await search_footway_inventory(None, None, None, list(new_vectors))
+    if inventory != None:
+        for item in inventory.items:
+            profile.products.append(item)
+    
+    print("Here is the vectors", new_vectors)
 
-    if inventory != None: chat_messages.append({"role": "system", "content": "Here is a json of available products based on the user's prompt; use this to be as helpful as possible: " + json.dumps([item.__dict__ for item in inventory.items])})
+      
+
+    if inventory != None: chat_messages.append({"role": "system", "content": "Here is a json of available products based on the user's prompt; use this to be as helpful as possible: " + json.dumps([item.__dict__ for item in profile.products])})
     chat_messages.append({"role": "user", "content": request.prompt})
+    
             #  {"role": "system", "content": "Show what it costs based on the available products" + json.dumps([item.__dict__ for item in inventory.items])} if inventory 
             #  else {"role": "system", "content": "Ask for more information on what the product the user is intrested in."},
 
