@@ -43,8 +43,8 @@ export function createChatApi(client: ApiClientInterface) {
       const on_error = (messages: string[]) => {
         console.error('Error calling the API:', messages);
       };
-      // const response = await client.post<Response>('/api/filter/openai', on_error, { prompt });
-      const response = await mockApiCall();
+      const response = await client.post<Response>('/api/filter/openai', on_error, { prompt });
+      // const response = await mockApiCall();
 
       let message = response.message;
 
