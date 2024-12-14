@@ -46,7 +46,7 @@ modules:
     module: polytope/node
     args:
       id: frontend
-      image: gcr.io/arched-inkwell-420116/node:21.7.0-slim
+      image: node:22-bullseye
       code: { type: host, path: ./frontend }
       cmd: ./bin/run
       env:
