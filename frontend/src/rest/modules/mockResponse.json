@@ -1,0 +1,64 @@
+{
+	"message": {
+		"message": "Oh, what a surprise! A bag for your laptop and school – how unique! But seriously, it really depends on what you're looking for. Are you a minimalist who only carries the essentials, or do you like to lug around everything but the kitchen sink? And what’s your style – are we talking casual, professional, or something that screams “I’m a student, hear me roar”? Give me the deets, and I’ll throw some options your way!"
+	},
+	"inventory": {
+		"items": [
+			{
+				"merchantId": "CAL",
+				"variantId": "2144799",
+				"productName": "Herschel Heritage Duffle Ivy Green",
+				"quantity": 5,
+				"supplierModelNumber": "11241-04281",
+				"ean": [
+					"828432565771"
+				],
+				"size": "ONESIZE",
+				"price": null,
+				"product_description": "<strong><meta charset=\"UTF-8\"></strong>\n<div aria-hidden=\"false\" role=\"tabpanel\" aria-labelledby=\"ui-id-5\" id=\"ui-id-6\" class=\"accordion-content-2 ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active\">\n<div class=\"pdp-features-container\">\n<div>\n<div class=\"product-details js-product-details-container\" data-skus='[\"11241-00001-OS\", \"11241-02077-OS\", \"11241-04281-OS\"]'>\n<div class=\"product-details__content full-width ratio-mobile--auto\">\n<div class=\"product-overview__descriptive-text m-b-3\">\n<p><strong>Made for your daily commute. Constructed with recycled materials and a matte coating, the Weather Resistant Herschel Heritage™ Duffle offers easy access packing with a U shaped opening for spontaneous trips in any weather.</strong></p>\n</div>\n</div>\n<div class=\"product-icons\">\n<strong><meta charset=\"UTF-8\"></strong>\n<ul>\n<li><strong>Dimension: 11.8\"(H) x 20.5\"(W) x 11.6\"(D)</strong></li>\n<li><strong>Volume: 36.5L</strong></li>\n</ul>\n<div>\n<div class=\"product-details js-product-details-container\" data-skus='[\"11241-00001-OS\", \"11241-02077-OS\", \"11241-04281-OS\"]'>\n<div class=\"flex-row\">\n<div class=\"product-details__content full-width  ratio-mobile--auto\">\n<div class=\"link--underline features-list\">\n<div class=\"features-list-content\">\n<ul>\n<li><strong>Made from 26 post consumer water bottles</strong></li>\n<li><strong>100% recycled exterior fabric</strong></li>\n<li><strong>Matte TPE coating</strong></li>\n<li><strong>Rubber diamond detail</strong></li>\n<li><strong>Zippered U shaped opening with rubber pull</strong></li>\n<li><strong>Removable shoulder strap</strong></li>\n<li><strong>Reinforced handles for comfortable carrying</strong></li>\n<li><strong>Front sleeve pocket</strong></li>\n<li><strong>Internal coated mesh organizer pocket</strong></li>\n</ul>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>",
+				"vendor": "Herschel",
+				"productType": [
+					"Accessories & Equipment"
+				],
+				"productGroup": [
+					"Bags"
+				],
+				"department": [
+					"Men"
+				],
+				"image_url": "https://images.footway.com/02/61073-71_001.png",
+				"created": null,
+				"updated": null
+			},
+      {
+				"merchantId": "CAL",
+				"variantId": "2144799",
+				"productName": "Backstage Passar",
+				"quantity": 5,
+				"supplierModelNumber": "11241-04281",
+				"ean": [
+					"828432565771"
+				],
+				"size": "ONESIZE",
+				"price": null,
+				"product_description": "<strong><meta charset=\"UTF-8\"></strong>\n<div aria-hidden=\"false\" role=\"tabpanel\" aria-labelledby=\"ui-id-5\" id=\"ui-id-6\" class=\"accordion-content-2 ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active\">\n<div class=\"pdp-features-container\">\n<div>\n<div class=\"product-details js-product-details-container\" data-skus='[\"11241-00001-OS\", \"11241-02077-OS\", \"11241-04281-OS\"]'>\n<div class=\"product-details__content full-width ratio-mobile--auto\">\n<div class=\"product-overview__descriptive-text m-b-3\">\n<p><strong>Made for your daily commute. Constructed with recycled materials and a matte coating, the Weather Resistant Herschel Heritage™ Duffle offers easy access packing with a U shaped opening for spontaneous trips in any weather.</strong></p>\n</div>\n</div>\n<div class=\"product-icons\">\n<strong><meta charset=\"UTF-8\"></strong>\n<ul>\n<li><strong>Dimension: 11.8\"(H) x 20.5\"(W) x 11.6\"(D)</strong></li>\n<li><strong>Volume: 36.5L</strong></li>\n</ul>\n<div>\n<div class=\"product-details js-product-details-container\" data-skus='[\"11241-00001-OS\", \"11241-02077-OS\", \"11241-04281-OS\"]'>\n<div class=\"flex-row\">\n<div class=\"product-details__content full-width  ratio-mobile--auto\">\n<div class=\"link--underline features-list\">\n<div class=\"features-list-content\">\n<ul>\n<li><strong>Made from 26 post consumer water bottles</strong></li>\n<li><strong>100% recycled exterior fabric</strong></li>\n<li><strong>Matte TPE coating</strong></li>\n<li><strong>Rubber diamond detail</strong></li>\n<li><strong>Zippered U shaped opening with rubber pull</strong></li>\n<li><strong>Removable shoulder strap</strong></li>\n<li><strong>Reinforced handles for comfortable carrying</strong></li>\n<li><strong>Front sleeve pocket</strong></li>\n<li><strong>Internal coated mesh organizer pocket</strong></li>\n</ul>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>",
+				"vendor": "Herschel",
+				"productType": [
+					"Accessories & Equipment"
+				],
+				"productGroup": [
+					"Bags"
+				],
+				"department": [
+					"Men"
+				],
+				"image_url": "https://images.footway.com/02/61073-71_001.png",
+				"created": null,
+				"updated": null
+			}
+		],
+		"totalItems": 1,
+		"currentPage": 1,
+		"totalPages": 1
+	}
+}

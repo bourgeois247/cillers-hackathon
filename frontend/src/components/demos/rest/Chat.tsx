@@ -25,6 +25,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
       const botMessage = await chatApi.sendMessage(userMessage.content);
       setLoading(false);
       setMessages((prev) => [...prev, botMessage]);
+      console.log(botMessage);
     } catch (err) {
       console.error(err);
       setMessages((prev) => [
@@ -45,11 +46,31 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
               className={`p-3 rounded ${
                 message.role === 'user'
                   ? 'bg-primary text-primary-content self-end'
-                  : 'bg-base-200 text-gray-600'
+                  : 'bg-base-200 text-gray-400'
               }`}
               style={{ maxWidth: '70%', alignSelf: message.role === 'user' ? 'flex-end' : 'flex-start' }}
             >
-              {message.content}
+              {message.content}{' What do you think about these though?'}
+              
+              {message.inventory && message.inventory.items && (
+                <div className="mt-2">
+                <div className="grid grid-cols-3 gap-4">
+                    {message.inventory.items.map((item) => (
+                      <div key={`${item.productName}`} style={{ maxHeight: '26rem' }}>
+                        <div className="rounded-t-lg" style={{
+                          backgroundImage: `url(${item.image_url})`,
+                          backgroundSize: 'cover',
+                          backgroundRepeat: 'no-repeat',
+                          height: '20rem'}}></div>
+                        <div className='bg-white p-4 rounded-b-lg'>
+                          <h2 className='font-bold text-gray-500'>{item.productName}</h2>
+                          <h4>{item.price}</h4>
+                          <div>{item.size}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>)}
             </div>
           ))}
           {isLoading && <div className='bg-base-200 p-3 rounded' style={{ maxWidth: '70%', alignSelf: 'flex-start' }}>
@@ -69,7 +90,7 @@ const Chat: React.FC<ItemsProps> = ({ client }) => {
           <div className="input-group flex">
             <input
               type="text"
-              className="input flex-grow text-black"
+              className="input flex-grow text-gray-400 mr-4"
               placeholder="Type your message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
