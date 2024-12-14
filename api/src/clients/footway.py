@@ -213,7 +213,7 @@ class FootwayClient:
             "department": department,
             "productGroup": product_group,
             "productType": product_type,
-            "variantIds": variant_ids,
+            "variantIds": variant_ids if variant_ids.count == 0 else ','.join(variant_ids),
             "searchText": search_text,
             "page": page,
             "pageSize": page_size,
